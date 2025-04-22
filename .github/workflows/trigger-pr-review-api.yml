@@ -29,6 +29,7 @@ jobs:
               "created_at": "${{ github.event.pull_request.created_at }}",
               "pr_state": "${{ github.event.pull_request.state }}",
               "pr_body": "${{ github.event.pull_request.body }}",
+              "html_url": "${{ github.event.pull_request.html_url }}",
               "head_sha": "${{ github.event.pull_request.head.sha }}",
               "base_ref": "${{ github.event.pull_request.base.ref }}"
             }' \
