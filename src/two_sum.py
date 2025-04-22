@@ -1,23 +1,41 @@
-""" Sum MegaPost - Python3 Solution with a detailed explanation
+# Sum MegaPost - Python3 Solution with a detailed explanation
+# Peyman
+# 50 Days Badge 2022
+# 140359
+# Jul 15, 2020
+# Python
+# Python3
+# If you're a newbie and sometimes have a hard time understanding the logic. Don't worry, you'll catch up 
+# after a month of doing Leetcode on a daily basis. Try to do it, even one example per day. It'd help. 
+# I've compiled a bunch on sum problems here, go ahead and check it out. Also, I think focusing on a subject 
+# and do 3-4 problems would help to get the idea behind solution since they mostly follow the same logic. 
+# Of course there are other ways to solve each problems but I try to be as uniform as possible. Good luck.
+# In general, sum problems can be categorized into two categories: 1) there is any array and 
+# you add some numbers to get to (or close to) a target, or 2) you need to return indices of numbers 
+# that sum up to a (or close to) a target value. Note that when the problem is looking for a indices, 
+# sorting the array is probably NOT a good idea.
+# Two Sum:
+# This is the second type of the problems where we're looking for indices, so sorting is not necessary. 
+# What you'd want to do is to go over the array, and try to find two integers that sum up to a target value. 
+# Most of the times, in such a problem, using dictionary (hastable) helps. You try to keep track of you've 
+# observations in a dictionary and use it once you get to the results.
+# Note: try to be comfortable to use enumerate as it's sometime out of comfort zone for newbies. enumerate 
+# comes handy in a lot of problems (I mean if you want to have a cleaner code of course). If I had to choose 
+# three built in functions/methods that I wasn't comfortable with at the start and have found them super helpful, 
+# I'd probably say enumerate, zip and set.
+# Solution: In this problem, you initialize a dictionary (seen). This dictionary will 
+# keep track of numbers (as key) and indices (as value). So, you go over your array (line #1) using enumerate 
+# that gives you both index and value of elements in array. As an example, 
+# let's do nums = [2,3,1] and target = 3. Let's say you're at index i = 0 and value = 2, ok? 
+# you need to find value = 1 to finish the problem, meaning, target - 2 = 1. 1 here is the remaining. 
+# Since remaining + value = target, you're done once you found it, right? So when going through the array, 
+# you calculate the remaining and check to see whether remaining is in the seen dictionary (line #3). 
+# If it is, you're done! you're current number and the remaining from seen would give you the output (line #4). 
+# Otherwise, you add your current number to the dictionary (line #5) since it's going to be a 
+# remaining for (probably) a number you'll see in the future assuming that there is at least one instance of answer.
+import collections
+from typing import List
 
-Peyman
-50 Days Badge 2022
-140359
-Jul 15, 2020
-Python
-Python3
-If you're a newbie and sometimes have a hard time understanding the logic. Don't worry, you'll catch up after a month of doing Leetcode on a daily basis. Try to do it, even one example per day. It'd help. I've compiled a bunch on sum problems here, go ahead and check it out. Also, I think focusing on a subject and do 3-4 problems would help to get the idea behind solution since they mostly follow the same logic. Of course there are other ways to solve each problems but I try to be as uniform as possible. Good luck.
-
-In general, sum problems can be categorized into two categories: 1) there is any array and you add some numbers to get to (or close to) a target, or 2) you need to return indices of numbers that sum up to a (or close to) a target value. Note that when the problem is looking for a indices, sorting the array is probably NOT a good idea.
-
-Two Sum:
-
-This is the second type of the problems where we're looking for indices, so sorting is not necessary. What you'd want to do is to go over the array, and try to find two integers that sum up to a target value. Most of the times, in such a problem, using dictionary (hastable) helps. You try to keep track of you've observations in a dictionary and use it once you get to the results.
-
-Note: try to be comfortable to use enumerate as it's sometime out of comfort zone for newbies. enumerate comes handy in a lot of problems (I mean if you want to have a cleaner code of course). If I had to choose three built in functions/methods that I wasn't comfortable with at the start and have found them super helpful, I'd probably say enumerate, zip and set.
-
-Solution: In this problem, you initialize a dictionary (seen). This dictionary will keep track of numbers (as key) and indices (as value). So, you go over your array (line #1) using enumerate that gives you both index and value of elements in array. As an example, let's do nums = [2,3,1] and target = 3. Let's say you're at index i = 0 and value = 2, ok? you need to find value = 1 to finish the problem, meaning, target - 2 = 1. 1 here is the remaining. Since remaining + value = target, you're done once you found it, right? So when going through the array, you calculate the remaining and check to see whether remaining is in the seen dictionary (line #3). If it is, you're done! you're current number and the remaining from seen would give you the output (line #4). Otherwise, you add your current number to the dictionary (line #5) since it's going to be a remaining for (probably) a number you'll see in the future assuming that there is at least one instance of answer.
- """
 class Solution1:
    def twoSum(self, nums: List[int], target: int) -> List[int]:
        seen = {}
@@ -43,7 +61,23 @@ class Solution2:
                 return [seen[remaining]+1, i+1]  #4
             else:
                 seen[value] = i  
-# Another approach to solve this problem (probably what Leetcode is looking for) is to treat it as first category of problems. Since the array is already sorted, this works. You see the following approach in a lot of problems. What you want to do is to have two pointer (if it was 3sum, you'd need three pointers as you'll see in the future examples). One pointer move from left and one from right. Let's say you numbers = [1,3,6,9] and your target = 10. Now, left points to 1 at first, and right points to 9. There are three possibilities. If you sum numbers that left and right are pointing at, you get temp_sum (line #1). If temp_sum is your target, you'r done! You're return it (line #9). If it's more than your target, it means that right is poiting to a very large value (line #5) and you need to bring it a little bit to the left to a smaller (r maybe equal) value (line #6) by adding one to the index . If the temp_sum is less than target (line #7), then you need to move your left to a little bit larger value by adding one to the index (line #9). This way, you try to narrow down the range in which you're looking at and will eventually find a couple of number that sum to target, then, you'll return this in line #9. In this problem, since it says there is only one solution, nothing extra is necessary. However, when a problem asks to return all combinations that sum to target, you can't simply return the first instace and you need to collect all the possibilities and return the list altogether (you'll see something like this in the next example).
+
+# Another approach to solve this problem (probably what Leetcode is looking for) is to treat it as 
+# first category of problems. Since the array is already sorted, this works. 
+# You see the following approach in a lot of problems. What you want to do is to have 
+# two pointer (if it was 3sum, you'd need three pointers as you'll see in the future examples).
+# One pointer move from left and one from right. Let's say you numbers = [1,3,6,9] and your target = 10. 
+# Now, left points to 1 at first, and right points to 9. There are three possibilities.
+# If you sum numbers that left and right are pointing at, you get temp_sum (line #1). If temp_sum is your target, 
+# you'r done! You're return it (line #9). If it's more than your target, it means that right is 
+# pointing to a very large value (line #5) and you need to bring it a little bit to the left 
+# to a smaller (r maybe equal) value (line #6) by adding one to the index . If the temp_sum is 
+# less than target (line #7), then you need to move your left to a little bit larger value by adding one to 
+# the index (line #9). This way, you try to narrow down the range in which you're looking at and will eventually 
+# find a couple of number that sum to target, then, you'll return this in line #9. In this problem, 
+# ince it says there is only one solution, nothing extra is necessary. However, when a problem asks to 
+# return all combinations that sum to target, you can't simply return the first instace and you need to 
+# collect all the possibilities and return the list altogether (you'll see something like this in the next example).
 
 class Solution3:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
@@ -59,15 +93,10 @@ class Solution3:
                 else:
                     return [left+1, right+1] #9
 # 3Sum
-
 # This is similar to the previous example except that it's looking for three numbers. There are some minor differences in the problem statement. It's looking for all combinations (not just one) of solutions returned as a list. And second, it's looking for unique combination, repeatation is not allowed.
-
 # Here, instead of looping (line #1) to len(nums) -1, we loop to len(nums) -2 since we're looking for three numbers. Since we're returning values, sort would be a good idea. Otherwise, if the nums is not sorted, you cannot reducing right pointer or increasing left pointer easily, makes sense?
-
 # So, first you sort the array and define res = [] to collect your outputs. In line #2, we check wether two consecutive elements are equal or not because if they are, we don't want them (solutions need to be unique) and will skip to the next set of numbers. Also, there is an additional constrain in this line that i > 0. This is added to take care of cases like nums = [1,1,1] and target = 3. If we didn't have i > 0, then we'd skip the only correct solution and would return [] as our answer which is wrong (correct answer is [[1,1,1]].
-
 # We define two additional pointers this time, left = i + 1 and right = len(nums) - 1. For example, if nums = [-2,-1,0,1,2], all the points in the case of i=1 are looking at: i at -1, left at 0 and right at 2. We then check temp variable similar to the previous example. There is only one change with respect to the previous example here between lines #5 and #10. If we have the temp = target, we obviously add this set to the res in line #5, right? However, we're not done yet. For a fixed i, we still need to check and see whether there are other combinations by just changing left and right pointers. That's what we are doing in lines #6, 7, 8. If we still have the condition of left < right and nums[left] and the number to the right of it are not the same, we move left one index to right (line #6). Similarly, if nums[right] and the value to left of it is not the same, we move right one index to left. This way for a fixed i, we get rid of repeative cases. For example, if nums = [-3, 1,1, 3,5] and target = 3, one we get the first [-3,1,5], left = 1, but, nums[2] is also 1 which we don't want the left variable to look at it simply because it'd again return [-3,1,5], right? So, we move left one index. Finally, if the repeating elements don't exists, lines #6 to #8 won't get activated. In this case we still need to move forward by adding 1 to left and extracting 1 from right (lines #9, 10).
-
 class Solution4:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         
