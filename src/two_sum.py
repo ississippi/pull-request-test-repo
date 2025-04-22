@@ -37,15 +37,16 @@ import collections
 from typing import List
 
 class Solution1:
-   def twoSum(self, nums: List[int], target: int) -> List[int]:
-       seen = {}
-       for i, value in enumerate(nums): #1
-           remaining = target - nums[i] #2
-           
-           if remaining in seen: #3
-               return [i, seen[remaining]]  #4
-           else:
-               seen[value] = i  #5
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        seen = {}
+        for i, value in enumerate(nums): #1
+            remaining = target - nums[i] #2
+            
+            if remaining in seen: #3
+                return [i, seen[remaining]]  #4
+            else:
+                seen[value] = i  #5
+        print(seen)
 # Two Sum II:
 
 # For this, you can do exactly as the previous. The only change I made below was to change the order of line #4. In the previous example, the order didn't matter. But, here the problem asks for asending order and since the values/indicess in seen has always lower indices than your current number, it should come first. Also, note that the problem says it's not zero based, meaning that indices don't start from zero, that's why I added 1 to both of them.
