@@ -48,7 +48,7 @@ class Solution1:
                 seen[value] = i  #5
         print(seen)
 # Two Sum II:
-
+# Two Sum II:
 # For this, you can do exactly as the previous. The only change I made below was to change the order of line #4. In the previous example, the order didn't matter. But, here the problem asks for asending order and since the values/indicess in seen has always lower indices than your current number, it should come first. Also, note that the problem says it's not zero based, meaning that indices don't start from zero, that's why I added 1 to both of them.
 
 class Solution2:
