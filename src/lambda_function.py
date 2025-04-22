@@ -26,7 +26,8 @@ def lambda_handler(event, context):
         'body': f'created_at, {created_at}!',
         'body': f'pr_state, {pr_state}!',
         'body': f'base_ref, {base_ref}!',
-        'body': f'pr_body, {pr_body}!'
+        'body': f'pr_body, {pr_body}!',
+        'body': f'pr_gary, Gary is a good guy!'
     }
     print("response:", json.dumps(response))
     return response
