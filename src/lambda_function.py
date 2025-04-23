@@ -29,5 +29,6 @@ def lambda_handler(event, context):
         'body': f'pr_body, {pr_body}!',
         'body': f'pr_gary, Gary is a good guy!'
     }
+    print(f"Pull Request: {pr_number}: {pr_title} in {repo} by {user_login} at {created_at}")
     print("response:", json.dumps(response))
     return response
