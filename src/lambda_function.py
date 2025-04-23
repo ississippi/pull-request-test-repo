@@ -1,8 +1,16 @@
+import base64
 import json
 
 def lambda_handler(event, context):
     print("request:", json.dumps(event))
+    if event.get('isBase64Encoded', False):
+        body = base64.b64decode(body).decode('utf-8')
     body = json.loads(event['body']) if event.get('body') else {}
+    # Determine content type
+    headers = event.get('headers', {}) or {}
+    content_type = headers.get('content-type', '').lower()
+    print(f'headers: {headers}')
+    print(f'content-type: {content_type}')    
     pr_number = event['pr_number']
     pr_title = event['pr_title']
     repo = event['repo']
