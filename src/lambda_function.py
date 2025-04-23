@@ -2,7 +2,7 @@ import json
 
 def lambda_handler(event, context):
     print("request:", json.dumps(event))
-    #body = json.loads(event['body']) if event.get('body') else {}
+    body = json.loads(event['body']) if event.get('body') else {}
     pr_number = event['pr_number']
     pr_title = event['pr_title']
     repo = event['repo']
