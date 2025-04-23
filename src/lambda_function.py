@@ -10,7 +10,8 @@ def lambda_handler(event, context):
     headers = event.get('headers', {}) or {}
     content_type = headers.get('content-type', '').lower()
     print(f'headers: {headers}')
-    print(f'content-type: {content_type}')    
+    print(f'content-type: {content_type}') 
+    print(f'pr_number from event body: {event["body"][pr_number]}')   
     pr_number = event['pr_number']
     pr_title = event['pr_title']
     repo = event['repo']
