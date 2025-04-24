@@ -17,23 +17,28 @@ def lambda_handler(event, context):
         pr_title = body.get('pr_title')
         user_login = body.get('user_login')
         html_url = body.get('html_url')
+        created_at = body.get('created_at')
+        pr_state = body.get('pr_state')
+        base_ref = body.get('base_ref')
         
         # Construct SNS message
         sns_message = {
             'pr_number': pr_number,
-            'repository': repo,
-            'title': pr_title,
-            'user': user_login,
-            'url': html_url
+            'repo': repo,
+            'pr_title': pr_title,
+            'user_login': user_login,
+            'url': html_url,
+            'created_at': created_at,
+            'pr_state': pr_state,
+            'base_ref': base_ref
         }
         
         # Initialize SNS client and publish message
         sns_client = boto3.client('sns')
         response = sns_client.publish(
-            TopicArn='arn:aws:sns:us-east-1:238338230919:pr-request.fifo',  # Replace with your SNS Topic ARN
+            TopicArn='arn:aws:sns:us-east-1:238338230919:pr-review-standard',  # Replace with your SNS Topic ARN
             Message=json.dumps(sns_message),
-            Subject=f'New Pull Request #{pr_number}',
-            MessageGroupId=str(pr_number)  # Use pr_number as MessageGroupId for FIFO
+            Subject=f'New Pull Request #{pr_number}'
         )
         
         return {
@@ -92,14 +97,20 @@ def flask_lambda_handler(event, context):
             pr_title = body.get('pr_title')
             user_login = body.get('user_login')
             html_url = body.get('html_url')
+            created_at = body.get('created_at')
+            pr_state = body.get('pr_state')
+            base_ref = body.get('base_ref')
             
             # Construct SNS message
             sns_message = {
                 'pr_number': pr_number,
-                'repository': repo,
-                'title': pr_title,
-                'user': user_login,
-                'url': html_url
+                'repo': repo,
+                'pr_title': pr_title,
+                'user_login': user_login,
+                'url': html_url,
+                'created_at': created_at,
+                'pr_state': pr_state,
+                'base_ref': base_ref
             }
             
             # Initialize SNS client and publish message
