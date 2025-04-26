@@ -23,17 +23,17 @@ def lambda_handler(event, context):
         base_ref = message_data.get('base_ref')
         
         # Log the extracted data (replace with your processing logic)
-        # log_message = (
-        #     f"Received SNS message:\n"
-        #     f"PR Number: {pr_number}\n"
-        #     f"Repository: {repository}\n"
-        #     f"Title: {title}\n"
-        #     f"User: {user}\n"
-        #     f"URL: {url}\n"
-        #     f"created_at: {created_at}\n"
-        #     f"pr_state: {pr_state}\n"
-        #     f"base_ref: {base_ref}\n"
-        # )
+        log_message = (
+            f"Received SNS message:\n"
+            f"PR Number: {pr_number}\n"
+            f"Repository: {repository}\n"
+            f"Title: {title}\n"
+            f"User: {user}\n"
+            f"URL: {url}\n"
+            f"created_at: {created_at}\n"
+            f"pr_state: {pr_state}\n"
+            f"base_ref: {base_ref}\n"
+        )
         
         # Use CloudWatch Logs via print (boto3 logger can be used if needed)
         # print(log_message)
