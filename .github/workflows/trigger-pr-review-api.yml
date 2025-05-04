@@ -2,6 +2,10 @@ name: Trigger an Automated Code Review API Call for a newly created PR
 
 on:
   pull_request:
+      types:
+        - opened
+        - reopened
+        - closed
 
 jobs:
   call-api:
